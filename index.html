@@ -3,1231 +3,1592 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Energy-provider · MMP Global Rollout · Case Study</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+<title>Global Energy Co · Paid Media AdTech — IT Strategy & Assessment 2023</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --ac-purple: #A100FF;
-  --ac-gradient: linear-gradient(135deg,#A100FF,#FF3DFF);
-  --ink: #000000;
-  --ink-soft: #0A0A0A;
-  --warm-white: #F5F5F5;
-  --off-white: #EBEBEB;
-  --mid: #767676;
-  --light-border: #DEDEDE;
-  --card-bg: #FFFFFF;
+  --green: #86BC25;
+  --green-dark: #5A8A0F;
+  --green-dim: rgba(134,188,37,0.12);
+  --black: #000000;
+  --ink: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --mid: #3A3A3A;
+  --muted: #6B6B6B;
+  --light: #D0D0CE;
+  --pale: #F0F0EE;
+  --white: #FFFFFF;
+  --red: #D62B1F;
+  --amber: #E8A000;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
-  background: var(--warm-white);
+  background: var(--white);
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.4;
-}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--pale); }
+::-webkit-scrollbar-thumb { background: var(--green); }
 
 /* ── NAV ── */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 48px;
-  background: rgba(250,249,246,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--light-border);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 56px;
+  border-bottom: 2px solid var(--green);
 }
-nav::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #A100FF, #FF3DFF, transparent);
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.Energy-provider-mark {
-  width: 42px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.nav-title {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.nav-tag {
-  font-size: 11px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--mid);
-  padding: 6px 16px;
-  border: 1px solid var(--light-border);
-  border-radius: 20px;
-}
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; animation: blink 2.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.nav-brand { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); }
+.nav-divider { width: 1px; height: 24px; background: var(--mid); }
+.nav-sub { font-size: 11px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.nav-right { display: flex; align-items: center; gap: 6px; }
+.nav-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; padding: 4px 10px; border: 1px solid; border-radius: 2px; letter-spacing: .5px; cursor: pointer; transition: all .15s; text-decoration: none; }
+.nav-pill-green { color: var(--green); border-color: var(--green); }
+.nav-pill-green:hover { background: var(--green); color: var(--black); }
+.nav-pill-dim { color: var(--muted); border-color: var(--mid); }
+.nav-pill-dim:hover { color: var(--white); border-color: var(--white); }
 
 /* ── HERO ── */
 .hero {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-top: 80px;
-  overflow: hidden;
-}
-
-.hero-left {
-  padding: 80px 48px 80px 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.hero-left::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--light-border) 30%, var(--light-border) 70%, transparent);
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--mid);
-  margin-bottom: 32px;
-}
-
-.eyebrow::before {
-  content: '';
-  width: 32px;
-  height: 2px;
-  background: linear-gradient(90deg,#A100FF,#FF3DFF);
-}
-
-.hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(48px, 6vw, 80px);
-  font-weight: 300;
-  line-height: 1.0;
-  letter-spacing: -1px;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.hero h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg,#A100FF,#FF3DFF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero h1 strong {
-  font-weight: 700;
-  display: block;
-}
-
-.hero-sub {
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.7;
-  max-width: 420px;
-  margin-top: 28px;
-  margin-bottom: 48px;
-}
-
-.hero-cta-row {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.btn-primary {
-  background: var(--ink);
-  color: var(--warm-white);
-  padding: 14px 32px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background .2s, transform .2s;
-}
-
-.btn-primary:hover { background: #FF3DFF; transform: translateY(-1px); }
-
-.btn-ghost {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--mid);
-  text-decoration: none;
-  border-bottom: 1px solid var(--light-border);
-  padding-bottom: 2px;
-  transition: color .2s, border-color .2s;
-}
-
-.btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
-
-.hero-right {
-  background: #000000;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px 48px;
-  overflow: hidden;
-}
-
-.hero-right::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(161,0,255,0.15), transparent 65%);
-  pointer-events: none;
-}
-
-.hero-right::after {
-  content: '';
-  position: absolute;
-  bottom: -80px;
-  left: -80px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,61,255,0.08), transparent 65%);
-  pointer-events: none;
-}
-
-.challenge-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #A100FF;
-  margin-bottom: 24px;
-}
-
-.challenge-text {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(22px, 2.8vw, 34px);
-  font-weight: 300;
-  line-height: 1.4;
-  color: #F5F3EE;
-  margin-bottom: 40px;
-}
-
-.challenge-text strong {
-  font-weight: 600;
-  color: #FFFFFF;
-  text-shadow: 0 1px 2px rgba(0,0,0,.2);
-}
-
-.solution-block {
-  border-left: 3px solid #A100FF;
-  padding-left: 20px;
-}
-
-.solution-block .label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #A100FF;
-  margin-bottom: 10px;
-}
-
-.solution-block p {
-  font-size: 14px;
-  font-weight: 300;
-  color: #B0ABA4;
-  line-height: 1.7;
-}
-
-.solution-block p strong {
-  color: #E8E5DF;
-  font-weight: 500;
-}
-
-/* ── STATS MARQUEE BAND ── */
-.marquee-band {
-  background: var(--ac-purple);
-  padding: 16px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  border-top: 1px solid rgba(0,0,0,.06);
-  border-bottom: 1px solid rgba(0,0,0,.06);
-}
-
-.marquee-inner {
-  display: inline-flex;
-  gap: 0;
-  animation: marquee 28s linear infinite;
-}
-
-.marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 40px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #FFFFFF;
-}
-
-.marquee-item::after {
-  content: '◆';
-  font-size: 8px;
-  color: rgba(161,0,255,.5);
-  margin-left: 40px;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── SECTION COMMON ── */
-section {
-  padding: 100px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 64px;
-}
-
-.section-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 72px;
-  font-weight: 300;
-  color: rgba(161,0,255,0.15);
-  line-height: 1;
-  flex-shrink: 0;
-  margin-top: -8px;
-}
-
-.section-title-block h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-
-.section-title-block h2 em { font-style: italic; }
-
-.section-title-block p {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--mid);
-  max-width: 480px;
-  line-height: 1.7;
-}
-
-/* ── RESULTS GRID ── */
-.results-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  background: var(--light-border);
-  border: 1px solid var(--light-border);
-  margin-bottom: 48px;
-}
-
-.result-card {
-  background: var(--card-bg);
-  padding: 36px 28px;
+  background: var(--black);
+  padding: 120px 48px 80px;
   position: relative;
   overflow: hidden;
-  transition: background .2s;
-}
-
-.result-card:hover { background: var(--off-white); }
-
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg,#A100FF,#FF3DFF);
-  transition: width .4s ease;
-}
-
-.result-card:hover::before { width: 100%; }
-
-.result-icon {
-  font-size: 20px;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.result-num {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 700;
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: 6px;
-  display: block;
-}
-
-.result-num .unit {
-  font-size: 0.5em;
-  font-weight: 300;
-  vertical-align: super;
-  color: #FF3DFF;
-}
-
-.result-label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: .5px;
-  color: var(--ink-soft);
-  margin-bottom: 6px;
-  display: block;
-}
-
-.result-desc {
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.5;
-}
-
-/* ── FEATURED STATS ── */
-.featured-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--light-border);
-  border: 1px solid var(--light-border);
-  margin-bottom: 2px;
-}
-
-.featured-stat {
-  background: #000000;
-  padding: 52px 48px;
-  position: relative;
-  overflow: hidden;
-}
-
-.featured-stat::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 80% 20%, rgba(161,0,255,.12), transparent 60%);
-}
-
-.featured-stat .big-num {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(60px, 8vw, 100px);
-  font-weight: 700;
-  color: #A100FF;
-  line-height: 1;
-  margin-bottom: 12px;
-  display: block;
-}
-
-.featured-stat .big-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #F0EDE6;
-  margin-bottom: 8px;
-  letter-spacing: .3px;
-}
-
-.featured-stat .big-desc {
-  font-size: 13px;
-  font-weight: 300;
-  color: #8A857E;
-  line-height: 1.6;
-  max-width: 320px;
-}
-
-/* ── SOLUTION SECTION ── */
-.solution-section {
-  background: var(--off-white);
-  border-top: 1px solid var(--light-border);
-  border-bottom: 1px solid var(--light-border);
-  padding: 100px 48px;
-}
-
-.solution-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.solution-cols {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 80px;
-  align-items: start;
-}
-
-.solution-sticky {
-  position: sticky;
-  top: 100px;
-}
-
-.kochava-badge {
-  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: #A100FF;
-  color: #FFFFFF;
-  padding: 10px 20px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(134,188,37,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(134,188,37,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(134,188,37,.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 28px;
+}
+.hero-label::before { content:''; width:24px; height:1px; background:var(--green); }
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 800;
+  line-height: .95;
   text-transform: uppercase;
+  letter-spacing: -1px;
+  color: var(--white);
   margin-bottom: 28px;
 }
-
-.kochava-badge span {
-  width: 8px;
-  height: 8px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
+.hero h1 .accent { color: var(--green); display: block; }
+.hero h1 .sub-line { font-weight: 300; font-size: .55em; letter-spacing: 1px; color: var(--light); display: block; margin-top: 8px; text-transform: none; }
+.hero-desc {
+  font-size: 16px; font-weight: 300; color: #9A9A9A; line-height: 1.7;
+  max-width: 500px; margin-bottom: 48px; border-left: 2px solid var(--green); padding-left: 20px;
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .5; transform: scale(0.7); }
+.hero-meta-row { display: flex; gap: 40px; flex-wrap: wrap; }
+.hero-meta-item { display: flex; flex-direction: column; }
+.hero-meta-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 36px; font-weight: 900; color: var(--white); line-height: 1;
 }
+.hero-meta-val span { color: var(--green); font-size: .7em; }
+.hero-meta-lbl { font-size: 11px; font-weight: 400; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
 
-.solution-heading {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 3.5vw, 46px);
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 24px;
-}
-
-.solution-heading em { font-style: italic; }
-.solution-heading strong { font-weight: 700; }
-
-.solution-body {
-  font-size: 14px;
-  font-weight: 300;
-  color: #5A5650;
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-
-.solution-body strong { font-weight: 600; color: var(--ink); }
-
-.capabilities-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.cap-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--light-border);
-  transition: padding-left .2s;
-}
-
-.cap-item:hover { padding-left: 8px; }
-
-.cap-item:last-child { border-bottom: none; }
-
-.cap-dot {
-  width: 32px;
-  height: 32px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.cap-text h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-
-.cap-text p {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.6;
-}
-
-/* ── IMPACT SECTION ── */
-.impact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.impact-card {
-  border: 1px solid var(--light-border);
-  padding: 32px 28px;
-  background: var(--card-bg);
+/* Right panel */
+.hero-right { position: relative; }
+.crisis-card {
+  background: var(--dark); border: 1px solid var(--mid);
+  border-top: 3px solid var(--red); padding: 32px; margin-bottom: 16px;
   position: relative;
-  transition: transform .2s, box-shadow .2s;
+}
+.crisis-card-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+}
+.crisis-stat-row { display: flex; gap: 24px; flex-wrap: wrap; }
+.c-stat { display: flex; flex-direction: column; }
+.c-num { font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 900; color: var(--white); line-height: 1; }
+.c-num .u { font-size: .5em; color: var(--red); }
+.c-lbl { font-size: 11px; color: #777; margin-top: 4px; max-width: 120px; line-height: 1.4; }
+.risk-card {
+  background: linear-gradient(135deg, #0A1A00, #111);
+  border: 1px solid rgba(134,188,37,.3); padding: 24px 32px;
+  display: flex; align-items: center; gap: 20px;
+}
+.risk-icon { font-size: 32px; flex-shrink: 0; }
+.risk-text h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: var(--green); }
+.risk-text p { font-size: 12px; color: #777; margin-top: 4px; line-height: 1.5; }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--green); padding: 12px 0; overflow: hidden;
+  white-space: nowrap; position: relative;
+}
+.ticker-inner { display: inline-flex; animation: ticker 30s linear infinite; }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 36px; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--black);
+}
+.ticker-item::after { content: '|'; color: rgba(0,0,0,.25); margin-left: 36px; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── SECTIONS ── */
+.section { padding: 100px 48px; max-width: 1280px; margin: 0 auto; }
+.section-full { padding: 100px 48px; }
+.section-full-inner { max-width: 1280px; margin: 0 auto; }
+
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.sec-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  font-weight: 500; color: var(--green); letter-spacing: 1px;
+}
+.sec-line { flex: 1; height: 1px; background: var(--light); max-width: 40px; }
+.sec-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+}
+.sec-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(36px, 4vw, 56px); font-weight: 800;
+  line-height: 1; text-transform: uppercase; letter-spacing: -.5px;
+  color: var(--ink); margin-bottom: 12px;
+}
+.sec-h2 em { font-style: normal; color: var(--green); }
+.sec-intro {
+  font-size: 15px; font-weight: 300; color: var(--muted);
+  max-width: 640px; line-height: 1.7; margin-bottom: 56px;
 }
 
-.impact-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0,0,0,.06);
+/* ── DRIVERS GRID ── */
+.drivers-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; background: var(--light); border: 1px solid var(--light); margin-bottom: 48px; }
+.driver-card {
+  background: var(--white); padding: 32px 28px;
+  border-top: 3px solid transparent; transition: border-color .2s, background .2s;
+  position: relative; overflow: hidden;
 }
+.driver-card:hover { background: #F8F8F6; border-top-color: var(--green); }
+.driver-num { font-family: 'Barlow Condensed', sans-serif; font-size: 72px; font-weight: 900; color: var(--pale); line-height: 1; position: absolute; top: 8px; right: 16px; pointer-events: none; }
+.driver-icon { font-size: 28px; margin-bottom: 14px; }
+.driver-title { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); margin-bottom: 10px; }
+.driver-body { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+.driver-body strong { font-weight: 600; color: var(--ink); }
 
-.impact-card-accent {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 4px;
+/* ── KEY DATA CALLOUT ── */
+.data-callout {
+  background: var(--black); padding: 56px 48px;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 2px; background: var(--black); border: none;
 }
-
-.accent-yellow { background: linear-gradient(90deg,#A100FF,#FF3DFF); }
-.accent-red { background: #A100FF; }
-.accent-dark { background: linear-gradient(90deg,#FF3DFF,#A100FF); }
-
-.impact-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-  display: block;
+.data-cell {
+  background: var(--dark); padding: 36px 28px;
+  border-top: 3px solid var(--green); position: relative;
 }
-
-.impact-card h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 10px;
-  line-height: 1.2;
+.data-big {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 64px; font-weight: 900; color: var(--green);
+  line-height: 1; margin-bottom: 8px;
 }
+.data-big .pct { font-size: .6em; }
+.data-label { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+.data-desc { font-size: 12px; font-weight: 300; color: #666; line-height: 1.6; }
 
-.impact-card p {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--mid);
-  line-height: 1.7;
+/* ── OPPORTUNITIES ── */
+.opps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.opp-card {
+  border: 1px solid var(--light); padding: 28px 24px;
+  position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s;
+  background: var(--white);
 }
-
-/* ── APP PERFORMANCE ── */
-.app-perf {
-  background: #000000;
-  padding: 100px 48px;
+.opp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+.opp-priority {
+  position: absolute; top: 0; right: 0;
+  background: var(--green); color: var(--black);
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+  padding: 5px 12px; letter-spacing: 1px; text-transform: uppercase;
 }
-
-.app-perf-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+.opp-value {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 42px;
+  font-weight: 900; color: var(--ink); line-height: 1; margin-bottom: 6px;
 }
-
-.perf-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2px;
-  background: rgba(255,255,255,.05);
-  margin-top: 56px;
+.opp-value span { font-size: .45em; color: var(--muted); }
+.opp-name { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); margin-bottom: 12px; }
+.opp-abbrev {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: var(--green); letter-spacing: 1.5px; margin-bottom: 12px;
 }
+.opp-desc { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.6; }
+.opp-tools { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500;
+  padding: 3px 8px; background: var(--pale); color: var(--mid);
+  border: 1px solid var(--light); letter-spacing: .5px;
+}
+.tool-tag.active { background: var(--green); color: var(--black); border-color: var(--green); }
 
-.perf-cell {
-  background: rgba(255,255,255,.03);
-  padding: 36px 32px;
-  border: 1px solid rgba(255,255,255,.06);
+/* ── STATE COMPARISON ── */
+.state-compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--light); border: 1px solid var(--light);
+}
+.state-col { background: var(--white); }
+.state-header {
+  padding: 20px 28px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--light);
+}
+.state-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 14px;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+}
+.state-label.current { color: var(--muted); }
+.state-label.future { color: var(--green); }
+.state-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 3px 10px; border-radius: 2px; font-weight: 500; letter-spacing: 1px;
+}
+.state-badge.current { background: var(--pale); color: var(--muted); border: 1px solid var(--light); }
+.state-badge.future { background: var(--green); color: var(--black); }
+.state-body { padding: 24px 28px; }
+.state-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--pale);
+}
+.state-row:last-child { border-bottom: none; }
+.state-row-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+}
+.dot-grey { background: var(--light); }
+.dot-green { background: var(--green); }
+.state-row-text { font-size: 13px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+.state-row-text span { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 300; }
+
+/* ── RISK BAND ── */
+.risk-band {
+  background: var(--black); padding: 80px 48px;
+}
+.risk-band-inner { max-width: 1280px; margin: 0 auto; }
+.risk-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 48px; }
+.risk-cell {
+  background: var(--dark); padding: 32px 28px;
+  border-left: 3px solid transparent;
+}
+.risk-cell.r-targeting { border-left-color: var(--red); }
+.risk-cell.r-measurement { border-left-color: var(--amber); }
+.risk-cell.r-optimisation { border-left-color: var(--green); }
+.risk-type {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 18px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--white); margin-bottom: 16px;
+}
+.risk-impact {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 48px;
+  font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 8px;
+}
+.risk-impact.amber { color: var(--amber); }
+.risk-impact.green-col { color: var(--green); }
+.risk-note { font-size: 12px; font-weight: 300; color: #666; line-height: 1.6; }
+.risk-solutions { margin-top: 20px; }
+.risk-sol-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 1.5px; color: var(--green); text-transform: uppercase; margin-bottom: 8px;
+}
+.risk-sol-item { font-size: 12px; color: #888; padding: 4px 0; border-bottom: 1px solid #222; }
+
+/* ── RECOMMENDATIONS ── */
+.recs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; background: var(--light); border: 1px solid var(--light); }
+.rec-card {
+  background: var(--white); padding: 36px 32px;
+  position: relative;
   transition: background .2s;
 }
-
-.perf-cell:hover { background: rgba(161,0,255,.08); border-left: 2px solid #A100FF; }
-
-.perf-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 48px;
-  font-weight: 700;
-  color: #A100FF;
-  line-height: 1;
-  margin-bottom: 10px;
-  display: block;
+.rec-card:hover { background: #F5F5F3; }
+.rec-card::before {
+  content: attr(data-step);
+  position: absolute; top: 28px; right: 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 80px; font-weight: 900; color: var(--pale); line-height: 1;
+  pointer-events: none;
 }
-
-.perf-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: #E8E5DF;
-  margin-bottom: 6px;
+.rec-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 12px;
 }
-
-.perf-desc {
-  font-size: 12px;
-  font-weight: 300;
-  color: #6B6660;
-  line-height: 1.6;
+.rec-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 24px;
+  font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--ink); margin-bottom: 14px;
 }
-
-/* ── SOURCE ── */
-.source-bar {
-  background: var(--off-white);
-  border-top: 1px solid var(--light-border);
-  padding: 20px 48px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  flex-wrap: wrap;
+.rec-body { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+.rec-body strong { font-weight: 600; color: var(--ink); }
+.rec-owner {
+  display: flex; align-items: center; gap: 8px; margin-top: 20px;
+  padding-top: 16px; border-top: 1px solid var(--pale);
 }
+.rec-owner-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+.rec-owner-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .5px; }
 
-.source-item {
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--mid);
-  letter-spacing: .5px;
+/* ── SOLUTIONS LANDSCAPE ── */
+.solutions-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.sol-card {
+  border: 1px solid var(--light); background: var(--white); padding: 24px;
+  transition: border-color .2s;
 }
+.sol-card:hover { border-color: var(--green); }
+.sol-cat {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.sol-cat::after { content:''; flex:1; height:1px; background:var(--green); opacity:.3; }
+.sol-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 17px;
+  font-weight: 700; text-transform: uppercase; color: var(--ink);
+  margin-bottom: 14px; line-height: 1.2;
+}
+.sol-list { list-style: none; }
+.sol-list li {
+  font-size: 12px; font-weight: 400; color: var(--muted);
+  padding: 6px 0; border-bottom: 1px solid var(--pale);
+  display: flex; align-items: center; gap: 8px;
+}
+.sol-list li:last-child { border-bottom: none; }
+.sol-list li::before { content:'›'; color: var(--green); font-weight: 700; font-size: 14px; }
+.sol-list li .used { font-family: 'JetBrains Mono', monospace; font-size: 9px; background: var(--green); color: var(--black); padding: 2px 6px; margin-left: auto; font-weight: 500; }
 
-.source-item strong { color: var(--ink-soft); font-weight: 600; }
+/* ── MEDIA IMPACT ── */
+.media-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--light); border: 1px solid var(--light); }
+.media-cell { background: var(--black); padding: 40px 32px; }
+.media-num {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 56px;
+  font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 8px;
+}
+.media-label { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+.media-note { font-size: 12px; font-weight: 300; color: #555; line-height: 1.5; }
 
-.source-sep { color: var(--light-border); }
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:2px; background: linear-gradient(to bottom, var(--green), rgba(134,188,37,.1)); }
+.tl-item { position: relative; padding: 0 0 32px 32px; }
+.tl-item::before {
+  content:''; position:absolute; left:-7px; top:6px;
+  width:16px; height:16px; border-radius:50%;
+  background: var(--black); border: 2px solid var(--green);
+}
+.tl-year {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 6px;
+}
+.tl-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.tl-body { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.6; }
 
 /* ── FOOTER ── */
 footer {
-  background: #000000;
-  padding: 56px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
+  background: var(--black); padding: 48px;
+  border-top: 2px solid var(--green);
+  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+}
+.footer-left h3 {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 28px;
+  font-weight: 900; text-transform: uppercase; color: var(--white);
+  letter-spacing: .5px; margin-bottom: 8px;
+}
+.footer-left p { font-size: 13px; font-weight: 300; color: #555; line-height: 1.6; }
+.footer-right { text-align: right; }
+.footer-authors { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.footer-author { font-size: 12px; font-weight: 400; color: #555; }
+.footer-author strong { color: var(--white); font-weight: 500; }
+.footer-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--green); letter-spacing: 1px; margin-bottom: 16px;
 }
 
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+/* ── UTIL ── */
+.divider-line { height: 1px; background: var(--light); margin: 0 48px; }
+.bg-pale { background: var(--pale); }
+.bg-black { background: var(--black); }
 
-.footer-Energy-provider {
-  width: 40px; height: 40px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--ink);
-}
-
-.footer-text h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: #F0EDE6;
-}
-
-.footer-text p {
-  font-size: 12px;
-  font-weight: 300;
-  color: #6B6660;
-  letter-spacing: .5px;
-}
-
-.footer-right {
-  font-size: 11px;
-  font-weight: 300;
-  color: #4A4640;
-  letter-spacing: 1px;
-  text-align: right;
-}
-
-/* ── ANIMATIONS ── */
-.fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
-.fade-up:nth-child(5) { transition-delay: .4s; }
-.fade-up:nth-child(6) { transition-delay: .5s; }
-.fade-up:nth-child(7) { transition-delay: .6s; }
-.fade-up:nth-child(8) { transition-delay: .7s; }
+/* ── FADE UP ── */
+.fu { opacity:0; transform:translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.fu.vis { opacity:1; transform:translateY(0); }
+.fu:nth-child(2){transition-delay:.08s}
+.fu:nth-child(3){transition-delay:.16s}
+.fu:nth-child(4){transition-delay:.24s}
+.fu:nth-child(5){transition-delay:.32s}
+.fu:nth-child(6){transition-delay:.40s}
+.fu:nth-child(7){transition-delay:.48s}
+.fu:nth-child(8){transition-delay:.56s}
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 16px 24px; }
-  .hero { grid-template-columns: 1fr; }
-  .hero-left { padding: 60px 24px 40px; }
-  .hero-right { padding: 40px 24px 60px; }
-  .hero-left::after { display: none; }
-  section { padding: 64px 24px; }
-  .results-grid { grid-template-columns: repeat(2, 1fr); }
-  .featured-stats { grid-template-columns: 1fr; }
-  .solution-cols { grid-template-columns: 1fr; gap: 40px; }
-  .solution-sticky { position: static; }
-  .impact-grid { grid-template-columns: 1fr; }
-  .perf-grid { grid-template-columns: 1fr; }
-  .solution-section { padding: 64px 24px; }
-  .app-perf { padding: 64px 24px; }
-  .source-bar { padding: 16px 24px; }
-  footer { padding: 40px 24px; flex-direction: column; }
-  .footer-right { text-align: left; }
+
+/* ── MARTECH STACK DIAGRAM ── */
+.stack-section { background: #050505; padding: 100px 48px; }
+.stack-inner { max-width: 1280px; margin: 0 auto; }
+
+/* Layer architecture */
+.arch-diagram { margin-top: 56px; display: flex; flex-direction: column; gap: 3px; }
+
+.arch-layer {
+  display: grid;
+  align-items: stretch;
+  gap: 3px;
+  position: relative;
+}
+
+.layer-label {
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-lr; text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #333;
+  background: #0D0D0D; padding: 12px 10px;
+  border-left: 2px solid #1A1A1A; white-space: nowrap;
+  min-width: 36px;
+}
+
+.layer-label.lbl-green { color: var(--green); border-left-color: var(--green); }
+.layer-label.lbl-amber { color: var(--amber); border-left-color: var(--amber); }
+.layer-label.lbl-red { color: var(--red); border-left-color: var(--red); }
+.layer-label.lbl-blue { color: #60A5FA; border-left-color: #60A5FA; }
+.layer-label.lbl-purple { color: #C084FC; border-left-color: #C084FC; }
+.layer-label.lbl-cyan { color: #22D3EE; border-left-color: #22D3EE; }
+
+.layer-content { display: flex; gap: 3px; flex: 1; flex-wrap: nowrap; }
+
+/* Node cards */
+.node {
+  background: #111; border: 1px solid #222;
+  padding: 14px 16px; flex: 1; min-width: 0;
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: background .2s, border-color .2s, transform .15s;
+}
+.node:hover { background: #1A1A1A; transform: translateY(-2px); z-index: 10; }
+.node::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--node-color, #333); transition: opacity .2s;
+}
+.node:hover::before { opacity: 1; }
+
+.node-icon { font-size: 18px; margin-bottom: 8px; display: block; }
+.node-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; color: #E8E8E8; margin-bottom: 4px;
+  line-height: 1.2;
+}
+.node-sub { font-size: 10px; font-weight: 300; color: #555; line-height: 1.4; }
+.node-badge {
+  position: absolute; top: 8px; right: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 8px;
+  padding: 2px 6px; border-radius: 2px; font-weight: 700; letter-spacing: .5px;
+}
+.badge-live { background: var(--green); color: #000; }
+.badge-wip { background: var(--amber); color: #000; }
+.badge-planned { background: #333; color: #888; border: 1px solid #444; }
+.badge-risk { background: var(--red); color: #fff; }
+
+/* Node colour variants */
+.node.n-green { --node-color: var(--green); }
+.node.n-amber { --node-color: var(--amber); }
+.node.n-red { --node-color: var(--red); }
+.node.n-blue { --node-color: #60A5FA; }
+.node.n-purple { --node-color: #C084FC; }
+.node.n-cyan { --node-color: #22D3EE; }
+.node.n-dim { --node-color: #333; }
+
+/* Connector arrows between layers */
+.layer-connector {
+  display: flex; align-items: center; justify-content: center;
+  height: 32px; position: relative; gap: 3px;
+}
+.connector-line {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 0;
+}
+.connector-line .cl { height: 100%; width: 1px; background: #222; margin: 0 auto; }
+.connector-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: #333; letter-spacing: 1px; text-align: center;
+  white-space: nowrap; padding: 0 16px;
+}
+
+/* Tech stack grid */
+.tech-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  margin-top: 3px;
+  background: #0D0D0D;
+  border: 1px solid #1A1A1A;
+}
+.tech-category { background: #0A0A0A; padding: 24px 20px; }
+.tech-cat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid #1A1A1A; display: flex;
+  align-items: center; gap: 8px;
+}
+.tech-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.tech-tool {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0; border-bottom: 1px solid #111;
+}
+.tech-tool:last-child { border-bottom: none; }
+.tech-tool-name { font-size: 12px; font-weight: 500; color: #BBB; flex: 1; }
+.tech-tool-status {
+  font-family: 'JetBrains Mono', monospace; font-size: 8px;
+  padding: 2px 6px; border-radius: 1px; font-weight: 700; letter-spacing: .3px;
+}
+
+/* Legend */
+.stack-legend {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  margin-top: 24px; padding-top: 24px;
+  border-top: 1px solid #1A1A1A;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.legend-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #555; letter-spacing: .5px; }
+
+/* Maturity matrix */
+.maturity-wrap {
+  background: #0A0A0A; border: 1px solid #1A1A1A;
+  padding: 40px; margin-top: 48px; position: relative;
+}
+.maturity-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700; text-transform: uppercase;
+  color: var(--white); letter-spacing: 1px; margin-bottom: 32px;
+}
+.matrix-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px; height: 360px; position: relative;
+}
+.matrix-cell {
+  background: #111; border: 1px solid #1A1A1A;
+  padding: 20px; display: flex; flex-direction: column;
+  justify-content: flex-end; position: relative;
+  transition: background .2s;
+}
+.matrix-cell:hover { background: #161616; }
+.matrix-cell-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  font-weight: 700; letter-spacing: 1px;
+  margin-bottom: 6px; text-transform: uppercase;
+}
+.matrix-cell-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700; text-transform: uppercase;
+  color: var(--white); line-height: 1.1; margin-bottom: 4px;
+}
+.matrix-cell-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 900; line-height: 1;
+}
+.matrix-cell-pri {
+  position: absolute; top: 12px; right: 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 8px;
+  color: #333; font-weight: 700; letter-spacing: 1px;
+}
+.matrix-axes {
+  display: grid; grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0;
+}
+.matrix-x-label {
+  text-align: center; padding-top: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; grid-column: 2;
+}
+.matrix-y-label {
+  writing-mode: vertical-lr; transform: rotate(180deg);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; padding-right: 12px; grid-row: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+
+@media(max-width:960px){
+  .stack-section { padding: 64px 24px; }
+  .arch-layer { flex-direction: column; }
+  .layer-label { writing-mode: horizontal-tb; transform: none; padding: 8px 12px; min-width: auto; }
+  .tech-stack-grid { grid-template-columns: repeat(2,1fr); }
+  .matrix-grid { grid-template-columns: repeat(2,1fr); height: auto; }
+}
+
+@media(max-width:960px){
+  nav { padding: 0 20px; }
+  .nav-right { display: none; }
+  .hero { grid-template-columns:1fr; padding:100px 24px 60px; gap:40px; }
+  .section { padding:64px 24px; }
+  .section-full { padding:64px 24px; }
+  .data-callout { grid-template-columns:repeat(2,1fr); }
+  .drivers-grid { grid-template-columns:1fr; }
+  .opps-grid { grid-template-columns:1fr; }
+  .state-compare { grid-template-columns:1fr; }
+  .risk-grid { grid-template-columns:1fr; }
+  .recs-grid { grid-template-columns:1fr; }
+  .solutions-grid { grid-template-columns:1fr; }
+  .media-grid { grid-template-columns:1fr; }
+  footer { grid-template-columns:1fr; }
+  .footer-right { text-align:left; }
+  .footer-authors { align-items: flex-start; }
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">
+      <div class="nav-dot"></div>
+      <div class="nav-brand">Global Energy Co · AdTech Strategy</div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-sub">IT Assessment · July 2023</div>
+  </div>
+  <div class="nav-right">
+    <a href="#environment" class="nav-pill nav-pill-dim">Environment</a>
+    <a href="#opportunities" class="nav-pill nav-pill-dim">Opportunities</a>
+    <a href="#state" class="nav-pill nav-pill-dim">Architecture</a>
+    <a href="#recommendations" class="nav-pill nav-pill-dim">Recommendations</a>
+    <a href="#solutions" class="nav-pill nav-pill-dim">Solutions</a>
+    <a href="#martech-stack" class="nav-pill nav-pill-green">MarTech Stack</a>
+  </div>
+</nav>
+
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
   <div class="hero-left">
-    <div class="eyebrow">Mobile Measurement Partner · Global Rollout</div>
+    <div class="hero-label">Paid Media AdTech · IT Strategy &amp; Assessment</div>
     <h1>
-      <em>Transforming</em><br/>
-      <strong>Energy-provider's Mobile</strong><br/>
-      Growth Engine
+      Paid Media
+      <span class="accent">AdTech</span>
+      <span class="sub-line">Landscape · IT Strategy &amp; Assessment</span>
     </h1>
-    <p class="hero-sub">
-      A global Kochava MMP deployment that turned limited first-party data into a precision growth machine — delivering 71% iOS revenue growth and an 80% reduction in user acquisition cost.
+    <p class="hero-desc">
+      A combined IT and Business AdTech strategy to navigate major industry changes over the next several years — protecting current market share and staying ahead of competitors in a post-cookie world.
     </p>
-    <div class="hero-cta-row">
-      <a href="#results" class="btn-primary">View Results</a>
-      <a href="#solution" class="btn-ghost">How It Was Done</a>
+    <div class="hero-meta-row">
+      <div class="hero-meta-item">
+        <div class="hero-meta-val">$48<span>M</span></div>
+        <div class="hero-meta-lbl">Mobility Paid Media (2022)</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-val">$200<span>M</span></div>
+        <div class="hero-meta-lbl">Global Media Spend</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-val">$32<span>M</span></div>
+        <div class="hero-meta-lbl">Media Dollars at Risk</div>
+      </div>
     </div>
   </div>
 
   <div class="hero-right">
-    <div class="challenge-label">The Challenge</div>
-    <p class="challenge-text">
-      Energy-provider faced the challenge of <strong>limited consented first-party data</strong>, which hindered its ability to offer personalised content and targeted advertising at scale.
-    </p>
-    <div class="solution-block">
-      <div class="label">The Response</div>
-      <p>
-        <strong>Kochava was globally rolled out</strong> across all media platforms to improve user experience, monetise Loyalty offerings, and grow the user base — with privacy compliance at the core of every integration decision.
-      </p>
+    <div class="crisis-card">
+      <div class="crisis-card-title">⚠ Critical Data Gap — Right Now</div>
+      <div class="crisis-stat-row">
+        <div class="c-stat">
+          <div class="c-num">80<span class="u">%</span></div>
+          <div class="c-lbl">of cookie-based traffic already unavailable for marketing</div>
+        </div>
+        <div class="c-stat">
+          <div class="c-num">20<span class="u">%</span></div>
+          <div class="c-lbl">of total traffic actually trackable via 3PC</div>
+        </div>
+        <div class="c-stat">
+          <div class="c-num">30<span class="u">%</span></div>
+          <div class="c-lbl">current site opt-in rate impeding ad tools</div>
+        </div>
+      </div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-icon">🎯</div>
+      <div class="risk-text">
+        <h4>$32M in advertising at risk</h4>
+        <p>Without first-party data strategy, up to $32M in Paid Media spend will lose targeting and measurement capability by end of 2024 when Google deprecates 3PC.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- MARQUEE -->
-<div class="marquee-band" aria-hidden="true">
-  <div class="marquee-inner">
-    <span class="marquee-item">89% SSO from App</span>
-    <span class="marquee-item">71% iOS Revenue Growth</span>
-    <span class="marquee-item">58% First-Party User Base Increase</span>
-    <span class="marquee-item">44% Conversion Rate Uplift</span>
-    <span class="marquee-item">50% Drop-off Reduction</span>
-    <span class="marquee-item">$1–4 eCPI</span>
-    <span class="marquee-item">80% Lower Acquisition Cost</span>
-    <span class="marquee-item">4.8 App Store Rating</span>
-    <span class="marquee-item">89% SSO from App</span>
-    <span class="marquee-item">71% iOS Revenue Growth</span>
-    <span class="marquee-item">58% First-Party User Base Increase</span>
-    <span class="marquee-item">44% Conversion Rate Uplift</span>
-    <span class="marquee-item">50% Drop-off Reduction</span>
-    <span class="marquee-item">$1–4 eCPI</span>
-    <span class="marquee-item">80% Lower Acquisition Cost</span>
-    <span class="marquee-item">4.8 App Store Rating</span>
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">3PC Deprecation · 2024</span>
+    <span class="ticker-item">GDPR · CCPA · CPRA Compliance</span>
+    <span class="ticker-item">Apple ATT · iOS 14.5+</span>
+    <span class="ticker-item">Google GAID Restriction · Q4 2023</span>
+    <span class="ticker-item">First-Party Data Imperative</span>
+    <span class="ticker-item">$220M Potential Margin Uplift</span>
+    <span class="ticker-item">Server-Side Collection</span>
+    <span class="ticker-item">Data Clean Rooms</span>
+    <span class="ticker-item">Identity Resolution</span>
+    <span class="ticker-item">Consent Management</span>
+    <span class="ticker-item">3PC Deprecation · 2024</span>
+    <span class="ticker-item">GDPR · CCPA · CPRA Compliance</span>
+    <span class="ticker-item">Apple ATT · iOS 14.5+</span>
+    <span class="ticker-item">Google GAID Restriction · Q4 2023</span>
+    <span class="ticker-item">First-Party Data Imperative</span>
+    <span class="ticker-item">$220M Potential Margin Uplift</span>
+    <span class="ticker-item">Server-Side Collection</span>
+    <span class="ticker-item">Data Clean Rooms</span>
+    <span class="ticker-item">Identity Resolution</span>
+    <span class="ticker-item">Consent Management</span>
   </div>
 </div>
 
-<!-- RESULTS -->
-<section id="results" style="padding-bottom:0">
-  <div class="section-header fade-up">
-    <div class="section-num">01</div>
-    <div class="section-title-block">
-      <h2>The <em>Results</em></h2>
-      <p>Six months of measurable impact across acquisition, retention, revenue and app reputation. Source: Adobe Analytics, Appfollow.io · Apr–Sep 2023 · Global markets.</p>
+<!-- ENVIRONMENT -->
+<section class="section" id="environment">
+  <div class="sec-eyebrow">
+    <div class="sec-num">01</div>
+    <div class="sec-line"></div>
+    <div class="sec-tag">Current Environment</div>
+  </div>
+  <h2 class="sec-h2">Drivers <em>for Change</em></h2>
+  <p class="sec-intro">Various market and industry changes are impacting the way the organisation runs its Paid Media operations and specifically its usage of AdTech platforms. A combined IT and Business AdTech strategy is needed to navigate these changes.</p>
+
+  <div class="drivers-grid">
+    <div class="driver-card fu">
+      <div class="driver-num">01</div>
+      <div class="driver-icon">🍪</div>
+      <div class="driver-title">Deprecation of 3rd Party Cookies</div>
+      <div class="driver-body">With most major browsers and device manufacturers announcing pending deprecation of 3rd party cookies, companies will be forced to find new and alternative solutions for programmatic digital advertising. <strong>All major browsers phase out 3PC by end of 2024.</strong> FireFox (2017) → Safari (2019) → Chrome &amp; Edge (2024).</div>
+    </div>
+    <div class="driver-card fu">
+      <div class="driver-num">02</div>
+      <div class="driver-icon">⚖️</div>
+      <div class="driver-title">Regulatory Requirements</div>
+      <div class="driver-body">Regulation like <strong>GDPR, CCPA, and CPRA</strong> will severely limit what customer data can be stored and tracked. There will be a heavy focus on ensuring data collection, storage, and processing is compliant with regulations, and that consent is provided and controlled by the end user.</div>
+    </div>
+    <div class="driver-card fu">
+      <div class="driver-num">03</div>
+      <div class="driver-icon">👁️</div>
+      <div class="driver-title">End User Awareness</div>
+      <div class="driver-body">Consumers are becoming more aware and sensitive to how companies treat their data and online activity. Currently, <strong>just over 2 in 3 loyalty app customers reject</strong> the use of tracking tools in the App. The organisation's consent rate sits at just 20%, far below industry best practice.</div>
+    </div>
+    <div class="driver-card fu">
+      <div class="driver-num">04</div>
+      <div class="driver-icon">📱</div>
+      <div class="driver-title">Mobile Device Limitations</div>
+      <div class="driver-body"><strong>Apple ATT (iOS 14.5+)</strong> allows users to opt out of sharing tracking data and IDFA device IDs. <strong>Google will also restrict third-party access to GAID starting Q4 2023.</strong> The ATT message means the organisation cannot collect IDFA if the customer opts-out — reducing push notification audiences and app tracking.</div>
     </div>
   </div>
 
-  <div class="results-grid">
-    <div class="result-card fade-up">
-      <span class="result-icon">📲</span>
-      <span class="result-num"><span class="unit"></span>89<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">SSO Email Confirmation via App</span>
-      <p class="result-desc">The vast majority of single sign-on confirmations now originate from the mobile app channel, driving first-party identity capture at scale.</p>
+  <!-- Timeline -->
+  <div class="sec-eyebrow" style="margin-top:48px; margin-bottom:24px">
+    <div class="sec-num" style="color:var(--muted)">TIMELINE</div>
+    <div class="sec-line"></div>
+    <div class="sec-tag">Industry Deprecation Journey</div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item fu"><div class="tl-year">2017</div><div class="tl-title">Firefox ends 3PC support</div><div class="tl-body">Ad-blocking software becomes more common. The beginning of the end for third-party cookie reliance.</div></div>
+    <div class="tl-item fu"><div class="tl-year">2018</div><div class="tl-title">GDPR &amp; CCPA Regulation</div><div class="tl-body">GDPR impacts Europe, CCPA impacts California. Data collection practices fundamentally challenged across the industry.</div></div>
+    <div class="tl-item fu"><div class="tl-year">2019</div><div class="tl-title">Apple Safari blocks 3PC</div><div class="tl-body">ITP (Intelligent Tracking Prevention) caps first-party cookies at 7 days. Safari users — a significant portion of the audience — now operating without 3PC.</div></div>
+    <div class="tl-item fu"><div class="tl-year">2020</div><div class="tl-title">Apple iOS 14 phases out IDFA</div><div class="tl-body">ATT framework introduced. Users can now opt out of mobile tracking entirely — reducing targetable app audience significantly.</div></div>
+    <div class="tl-item fu"><div class="tl-year">2024</div><div class="tl-title">Google Chrome &amp; Edge · Final 3PC Deprecation</div><div class="tl-body">The last major browsers to end 3PC support. <strong>$32M in Paid Media spend at risk.</strong> Companies without first-party data strategies and privacy-compliant tech stacks will face severe performance degradation.</div></div>
+  </div>
+</section>
+
+<!-- KEY DATA -->
+<div class="bg-black">
+  <div class="data-callout">
+    <div class="data-cell fu">
+      <div class="data-big">40<span class="pct">%</span></div>
+      <div class="data-label">Visitors from 3PC-blocking browsers</div>
+      <div class="data-desc">40% of total visitors in key markets are driven by browsers which block 3PC — before any consent is even requested.</div>
     </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">📈</span>
-      <span class="result-num">71<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">iOS Revenue Growth</span>
-      <p class="result-desc">Post SKAN deployment, iOS revenue grew 71% — demonstrating that privacy-compliant measurement can coexist with commercial growth.</p>
+    <div class="data-cell fu">
+      <div class="data-big">30<span class="pct">%</span></div>
+      <div class="data-label">Opt-in rate on website</div>
+      <div class="data-desc">The current opt-in rate leaves 70% of consented sessions without 3PC. Combined with browser blocking, only 20% of traffic is trackable.</div>
     </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">👥</span>
-      <span class="result-num">58<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">First-Party User Base Growth</span>
-      <p class="result-desc">Achieved with less than 2% of total media budget — a remarkable return on investment driven by smart attribution and optimised spend allocation.</p>
+    <div class="data-cell fu">
+      <div class="data-big">20<span class="pct">%</span></div>
+      <div class="data-label">Total traffic trackable via 3PC</div>
+      <div class="data-desc">The combined effect of browser blocking and low consent rates means 80% of traffic is already lost for paid media measurement.</div>
     </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">🎯</span>
-      <span class="result-num">44<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">Conversion Rate Increase</span>
-      <p class="result-desc">Channel Analytics revealed a 44% uplift in conversion rate — directly attributable to improved audience targeting enabled by Kochava data.</p>
-    </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">⬇️</span>
-      <span class="result-num">50<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">Drop-off Reduction</span>
-      <p class="result-desc">The gap between installs and registrations was halved — a direct result of funnel analysis and real-time optimisation in the onboarding flow.</p>
-    </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">⭐</span>
-      <span class="result-num">4.8</span>
-      <span class="result-label">App Store Rating</span>
-      <p class="result-desc">10% improvement in app store ratings, with 4.8 now displayed — a leading indicator of user satisfaction and organic growth potential.</p>
-    </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">🏆</span>
-      <span class="result-num">9<span style="font-size:.4em;font-weight:300;color:var(--mid)">%</span></span>
-      <span class="result-label">App Reputation Index Growth</span>
-      <p class="result-desc">vs 4% market benchmark — Energy-provider's app reputation grew at more than double the market rate during the measurement period.</p>
-    </div>
-    <div class="result-card fade-up">
-      <span class="result-icon">💰</span>
-      <span class="result-num">$1<span style="font-size:.35em;font-weight:300;color:var(--mid)">–4</span></span>
-      <span class="result-label">Effective Cost Per Install (eCPI)</span>
-      <p class="result-desc">An 80% reduction in user acquisition cost — with precision targeting replacing broad-reach spend, delivering significantly more efficient growth.</p>
+    <div class="data-cell fu">
+      <div class="data-big">$32<span style="font-size:.5em;color:var(--muted)">M</span></div>
+      <div class="data-label">Paid Media dollars at risk</div>
+      <div class="data-desc">13%–82% of total applicable spend in Programmatic, Social and Search is at risk depending on Google's Privacy Sandbox implementation.</div>
     </div>
   </div>
+</div>
 
-  <div class="featured-stats">
-    <div class="featured-stat fade-up">
-      <span class="big-num">80%</span>
-      <div class="big-label">Reduction in User Acquisition Cost</div>
-      <p class="big-desc">From high-cost traditional channels to precision-targeted mobile acquisition — the MMP rollout fundamentally changed Energy-provider's growth economics, enabling rapid user base expansion at a fraction of the previous cost.</p>
+<!-- OPPORTUNITIES -->
+<section class="section" id="opportunities">
+  <div class="sec-eyebrow">
+    <div class="sec-num">02</div>
+    <div class="sec-line"></div>
+    <div class="sec-tag">Opportunities · Value / Maturity Matrix</div>
+  </div>
+  <h2 class="sec-h2">Six <em>Strategic Opportunities</em></h2>
+  <p class="sec-intro">Prioritised by business value and MarTech maturity. The combined value at risk across all six opportunity areas exceeds $94M.</p>
+
+  <div class="opps-grid">
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 1</div>
+      <div class="opp-value">$70<span>M value at risk</span></div>
+      <div class="opp-name">Consent Management Platform</div>
+      <div class="opp-abbrev">CMP</div>
+      <div class="opp-desc">Currently consent is stored on the user's browser — not stored anywhere centrally. Customers can't opt out in the app; they have to email customer service. Consent rate is 20%. Integrating a CMP could double the consent rate to 40%+, unlocking significant paid media activation.</div>
+      <div class="opp-tools">
+        <span class="tool-tag">OneTrust</span>
+        <span class="tool-tag">TrustArc</span>
+        <span class="tool-tag">UserCentrics</span>
+        <span class="tool-tag">Osano</span>
+      </div>
     </div>
-    <div class="featured-stat fade-up">
-      <span class="big-num">&lt;2%</span>
-      <div class="big-label">of Total Media Budget</div>
-      <p class="big-desc">58% first-party user base growth was achieved with less than 2% of the total media budget — demonstrating that smarter measurement, not bigger spend, is the lever that changes business outcomes at scale.</p>
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 2</div>
+      <div class="opp-value">$8<span>M value at risk</span></div>
+      <div class="opp-name">Event Streams · Server-Side</div>
+      <div class="opp-abbrev">CAPI · S2S Collection</div>
+      <div class="opp-desc">Server-side enablement gives the organisation better control of data capture, storage, encryption and transfer to advertising tools. Reduces loss from 3PC deprecation from 80% down to 30% by collecting data server-side — bypassing browser restrictions entirely.</div>
+      <div class="opp-tools">
+        <span class="tool-tag active">Tealium ✓ WIP</span>
+        <span class="tool-tag active">DV360 ✓ In use</span>
+      </div>
+    </div>
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 3</div>
+      <div class="opp-value">$2<span>M value at risk</span></div>
+      <div class="opp-name">Google Analytics 4</div>
+      <div class="opp-abbrev">GA4 · Led by Corporate</div>
+      <div class="opp-desc">GA4 Enterprise is a GDPR-compliant, cross-device and browser solution. With Google Universal Analytics sunsetting, the organisation will lose the capability to track visitor analytics until GA4 is fully operational. Critical migration that directly impacts measurement.</div>
+      <div class="opp-tools">
+        <span class="tool-tag active">GA4 ✓ WIP</span>
+        <span class="tool-tag active">Adobe Analytics ✓ In use</span>
+      </div>
+    </div>
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 4</div>
+      <div class="opp-value">$3<span>M value at risk</span></div>
+      <div class="opp-name">Audience Streams · CDP</div>
+      <div class="opp-abbrev">Customer Data Platform</div>
+      <div class="opp-desc">Current MarTech is primarily Adobe Audience Manager which may not be fit for purpose. Opportunity to move to a CDP that provides equivalent functionality at cheaper TCO — with real-time visitor enrichment, segmentation, cross-device stitching and audience activation.</div>
+      <div class="opp-tools">
+        <span class="tool-tag">LiveRamp</span>
+        <span class="tool-tag">Tealium</span>
+        <span class="tool-tag">Treasure Data</span>
+        <span class="tool-tag">Infosum</span>
+      </div>
+    </div>
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 5</div>
+      <div class="opp-value">$3<span>M value at risk</span></div>
+      <div class="opp-name">Data Clean Rooms</div>
+      <div class="opp-abbrev">DCR · Data Collaboration</div>
+      <div class="opp-desc">Data Clean Rooms allow the organisation to integrate and share first-party data with varied partners and provide a way to track and measure ad impacts even without 3PC — reducing reliance on Walled Gardens (Meta, Google, Amazon). Allows identification of cohorts for paid media targeting.</div>
+      <div class="opp-tools">
+        <span class="tool-tag active">Infosum ✓ Pilot</span>
+        <span class="tool-tag active">AMC ✓ Pilot</span>
+        <span class="tool-tag">Habu/Snowflake</span>
+      </div>
+    </div>
+    <div class="opp-card fu">
+      <div class="opp-priority">Priority 6</div>
+      <div class="opp-value">$8<span>M value at risk</span></div>
+      <div class="opp-name">Identity Resolution</div>
+      <div class="opp-abbrev">Cookieless ID</div>
+      <div class="opp-desc">The current ECID is a 3PC-based identifier with limited lifespan. Many device manufacturers including Apple and Google are removing the ability to share unique device identifiers (GAID). Integrating an ID Resolution platform creates a common identifier across platforms for persistent tracking.</div>
+      <div class="opp-tools">
+        <span class="tool-tag">LiveRamp</span>
+        <span class="tool-tag">Tealium</span>
+        <span class="tool-tag">Amperity</span>
+        <span class="tool-tag">Listrak</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<div class="solution-section" id="solution">
-  <div class="solution-inner">
-    <div class="section-header fade-up">
-      <div class="section-num">02</div>
-      <div class="section-title-block">
-        <h2>The <em>Solution</em></h2>
-        <p>A full-stack MMP deployment — from technical integration to business intelligence — built for a privacy-first world.</p>
+<!-- RISK BAND -->
+<div class="risk-band" id="risk">
+  <div class="risk-band-inner">
+    <div class="sec-eyebrow">
+      <div class="sec-num" style="color:var(--green)">03</div>
+      <div class="sec-line" style="background:var(--mid)"></div>
+      <div class="sec-tag" style="color:#666">Risk Assessment · Targeting / Measurement / Optimisation</div>
+    </div>
+    <h2 class="sec-h2" style="color:var(--white)">Impact of <em>3PC Loss</em></h2>
+    <p class="sec-intro" style="color:#555">Privacy-led technology and audience solutions are required to mitigate against the impact of 3PC loss across three critical paid media functions.</p>
+
+    <div class="risk-grid">
+      <div class="risk-cell r-targeting fu">
+        <div class="risk-type">Targeting</div>
+        <div class="risk-impact">13–82%</div>
+        <p class="risk-note">of total applicable spend up to <strong style="color:#fff">$32M at risk</strong>. 13% directly dependent on 3PC. Up to 82% dependent on platform-owned 2P audiences pending Google Privacy Sandbox launch.</p>
+        <div class="risk-solutions">
+          <div class="risk-sol-label">Solutions</div>
+          <div class="risk-sol-item">Data Clean Rooms</div>
+          <div class="risk-sol-item">Deterministic &amp; Probabilistic Alternative IDs</div>
+          <div class="risk-sol-item">Advanced Modelled Data: Predictive, Contextual</div>
+          <div class="risk-sol-item">Cohort-Based Targeting</div>
+        </div>
+      </div>
+      <div class="risk-cell r-measurement fu">
+        <div class="risk-type">Measurement</div>
+        <div class="risk-impact amber">80%</div>
+        <p class="risk-note">of total traffic already not available for marketing purposes. Due to Safari limitations and current opt-in rates, only <strong style="color:#fff">20% of total users</strong> are measurable. GA Universal Analytics sunset compounds this further.</p>
+        <div class="risk-solutions">
+          <div class="risk-sol-label">Solutions</div>
+          <div class="risk-sol-item">GA4 &amp; Tealium Event Streams</div>
+          <div class="risk-sol-item">Consent Management Systems</div>
+          <div class="risk-sol-item">Data Clean Rooms</div>
+          <div class="risk-sol-item">Identity Resolution</div>
+        </div>
+      </div>
+      <div class="risk-cell r-optimisation fu">
+        <div class="risk-type">Optimisation</div>
+        <div class="risk-impact green-col">Low Direct</div>
+        <p class="risk-note">Retargeting and re-engagement spend is too low to take into consideration as direct 3PC risk. However, key projects <strong style="color:#fff">CCX and TAC</strong> have long-term roadmap dependencies on optimisation capabilities.</p>
+        <div class="risk-solutions">
+          <div class="risk-sol-label">Mitigation</div>
+          <div class="risk-sol-item">Server-Side Event Collection (CAPI)</div>
+          <div class="risk-sol-item">First-Party Signal Enrichment</div>
+          <div class="risk-sol-item">Consent-Driven Audience Activation</div>
+          <div class="risk-sol-item">CDP Audience Segmentation</div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="solution-cols">
-      <div class="solution-sticky fade-up">
-        <div class="kochava-badge">
-          <span></span>
-          Kochava MMP · Global
-        </div>
-        <h2 class="solution-heading">
-          One platform.<br/>
-          <em>Global scale.</em><br/>
-          <strong>Full visibility.</strong>
-        </h2>
-        <p class="solution-body">
-          Kochava was selected as Energy-provider's global Mobile Measurement Partner and deployed across <strong>all media platforms worldwide</strong>. The brief was clear: improve user experience, monetise Loyalty programme data, and grow the user base — while maintaining the highest standards of data privacy and consent compliance.
-        </p>
-        <p class="solution-body">
-          The rollout quickly grew and expanded Energy-provider's user base at a <strong>cheaper cost than traditional channels</strong>, while providing business-critical insights that traditional media measurement simply could not deliver.
-        </p>
+<!-- CURRENT vs FUTURE STATE -->
+<section class="section" id="state">
+  <div class="sec-eyebrow">
+    <div class="sec-num">04</div>
+    <div class="sec-line"></div>
+    <div class="sec-tag">Architecture · Current State vs Future State</div>
+  </div>
+  <h2 class="sec-h2">AdTech Stack <em>Evolution</em></h2>
+  <p class="sec-intro">The AdTech architecture is evolving from a fragmented Adobe-centric stack to a privacy-first, server-side, first-party data infrastructure designed for the cookieless era.</p>
+
+  <div class="state-compare">
+    <div class="state-col">
+      <div class="state-header">
+        <div class="state-label current">Current State</div>
+        <div class="state-badge current">2023 · As-Is</div>
       </div>
+      <div class="state-body">
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Adobe Audience Manager (AAM / AEP)<span>Primary DMP/CDP — ageing platform, potential TCO optimisation opportunity</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Adobe Launch (Tag Management)<span>Client-side tag deployment — impacted by browser 3PC blocking</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Evidon (Consent — legacy)<span>Being evaluated for replacement; not fit for current regulatory requirements</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Client-side data collection only<span>80% of cookie-based traffic already unavailable; no server-side fallback</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Adobe Analytics + GA Universal<span>GA Universal sunsetting — active gap in analytics capability</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">No Data Clean Room<span>Full reliance on Walled Gardens — Meta, Google, Amazon</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">ECID (3PC-based identifier)<span>Limited lifespan; will not survive 3PC deprecation</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-grey"></div><div class="state-row-text">Consent stored in browser only<span>No centralised visibility into consent data; 20% opt-in rate</span></div></div>
+      </div>
+    </div>
+    <div class="state-col">
+      <div class="state-header">
+        <div class="state-label future">Future State</div>
+        <div class="state-badge future">Target · Post-2024</div>
+      </div>
+      <div class="state-body">
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">CDP (Audience Streams via Tealium or LiveRamp)<span>Visitor enrichment, segmentation, cross-device stitching, real-time action platform</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">Tealium (Tag &amp; Event Stream Management)<span>Server-side data collection — bypasses browser blocking; already WIP</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">OneTrust / TIQ (Consent Management Platform)<span>Doubles consent rate; stores consent server-side; app opt-out in-product</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">Server-Side API Event Collection (CAPI)<span>Reduces 3PC data loss from 80% to 30%; direct connection to ad platforms</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">GA4 Enterprise (GDPR-compliant cross-device)<span>Regional EU collection servers; IP discarding; encrypted data transmission</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">Data Clean Rooms (Infosum, AMC, Habu)<span>Pilots planned — enables measurement without 3PC; reduces Walled Garden reliance</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">Identity Resolution (LiveRamp, Tealium)<span>Common identifier across platforms; persistent cross-device profile stitching</span></div></div>
+        <div class="state-row fu"><div class="state-row-dot dot-green"></div><div class="state-row-text">LMA Onboarding: 6Sense, Madison Logic, Stich<span>Brought onto IT support; governed and integrated into architecture</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="fade-up">
-        <ul class="capabilities-list">
-          <li class="cap-item">
-            <div class="cap-dot">📊</div>
-            <div class="cap-text">
-              <h4>Lifetime Value (LTV) Modelling</h4>
-              <p>Predictive LTV models built on Kochava's enriched first-party data, enabling Energy-provider to identify, target and retain its most commercially valuable users with precision.</p>
-            </div>
-          </li>
-          <li class="cap-item">
-            <div class="cap-dot">🔮</div>
-            <div class="cap-text">
-              <h4>Predictive Churn Analysis</h4>
-              <p>Early-warning churn signals identified users at risk of disengaging, enabling proactive retention campaigns before loyalty points expired and app uninstalls occurred.</p>
-            </div>
-          </li>
-          <li class="cap-item">
-            <div class="cap-dot">📱</div>
-            <div class="cap-text">
-              <h4>SKAN 4.0 · iOS Privacy Compliance</h4>
-              <p>Full SKAdNetwork deployment ensured iOS attribution remained accurate and actionable post-ATT, driving the 71% iOS revenue growth whilst remaining fully compliant with Apple's privacy framework.</p>
-            </div>
-          </li>
-          <li class="cap-item">
-            <div class="cap-dot">💹</div>
-            <div class="cap-text">
-              <h4>ROAS Measurement & Optimisation</h4>
-              <p>Return on Ad Spend was measured at the campaign, channel and creative level — enabling budget reallocation in real-time to highest-performing acquisition sources.</p>
-            </div>
-          </li>
-          <li class="cap-item">
-            <div class="cap-dot">🔁</div>
-            <div class="cap-text">
-              <h4>Retention & Funnel Analytics</h4>
-              <p>Deep funnel analysis revealed the install-to-registration drop-off. Targeted interventions in the onboarding flow reduced this gap by 50%, directly expanding the registered user base.</p>
-            </div>
-          </li>
-          <li class="cap-item">
-            <div class="cap-dot">🌍</div>
-            <div class="cap-text">
-              <h4>Global Media Platform Integration</h4>
-              <p>Kochava was integrated across all media buying platforms globally — Google, Meta, Apple Search Ads and programmatic — creating a single, unified view of cross-channel performance for the first time.</p>
-            </div>
-          </li>
+<!-- MEDIA IMPACT -->
+<div class="bg-pale">
+  <div class="section">
+    <div class="sec-eyebrow">
+      <div class="sec-num">05</div>
+      <div class="sec-line"></div>
+      <div class="sec-tag">Media Impact · UK SVP MMM</div>
+    </div>
+    <h2 class="sec-h2">Media <em>Value at Stake</em></h2>
+    <p class="sec-intro">Extrapolating from UK SVP Marketing Mix Modelling data to the global digital media picture reveals a significant potential margin uplift from effective digital media investment.</p>
+
+    <div class="media-grid">
+      <div class="media-cell fu">
+        <div class="media-num">2.21</div>
+        <div class="media-label">SVP ROI for Digital Media Campaigns</div>
+        <div class="media-note">SVP margin uplift as a result of digital media campaigns only. CR margins will be higher once CR MMM models are developed for UK.</div>
+      </div>
+      <div class="media-cell fu">
+        <div class="media-num">$220M</div>
+        <div class="media-label">Potential Margin Uplift (Global)</div>
+        <div class="media-note">Assuming 50% of global $200M media spend goes to digital media with a benchmark ROI of 1.2× — the potential margin uplift is $220M.</div>
+      </div>
+      <div class="media-cell fu">
+        <div class="media-num">$3.6M</div>
+        <div class="media-label">OP23 Investment Plan Requested</div>
+        <div class="media-note">OP23 plan aligned between Paid Media &amp; IT. Awaiting confirmation on 2024 funding. In parallel, up to $3.2M in TCO savings opportunity identified.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<section class="section" id="recommendations">
+  <div class="sec-eyebrow">
+    <div class="sec-num">06</div>
+    <div class="sec-line"></div>
+    <div class="sec-tag">Recommendations / Next Steps</div>
+  </div>
+  <h2 class="sec-h2">Four <em>Actions</em> to Take Now</h2>
+  <p class="sec-intro">Prioritised actions aligned between IT, Business and SOM to protect the paid media investment and build a privacy-first AdTech infrastructure.</p>
+
+  <div class="recs-grid">
+    <div class="rec-card fu" data-step="01">
+      <div class="rec-tag">Step 01 · Immediate</div>
+      <div class="rec-title">Secure 2024 Budget</div>
+      <div class="rec-body">OP23 plan has been created and aligned between stakeholders. In total, the Paid Media OP23 plan is requesting <strong>up to $3.6M</strong> for the next year's programme of work. Awaiting confirmation on funding. Without budget confirmation, solutions remain in assessment and the 3PC cliff edge approaches unmitigated.</div>
+      <div class="rec-owner">
+        <div class="rec-owner-dot"></div>
+        <div class="rec-owner-text">Owner: Global IDTM Lead · Paid Media SME: Media AdTech Lead · IT Product Mgr: IT Product Manager</div>
+      </div>
+    </div>
+    <div class="rec-card fu" data-step="02">
+      <div class="rec-tag">Step 02 · Q3 2023</div>
+      <div class="rec-title">Solution Assessment</div>
+      <div class="rec-body">Pending budget confirmation, multiple priorities need detailed assessment before implementation. Assessments require <strong>detailed review and alignment with IT Product Teams and Architecture</strong>. Six workstreams: CMP selection, Data Collection platform, Analytics (GA4), Data Clean Rooms, Identity Resolution / CDP, and LMA onboarding.</div>
+      <div class="rec-owner">
+        <div class="rec-owner-dot"></div>
+        <div class="rec-owner-text">Owner: Paid Media Lead, SOM Lead · IT Architect: IT Architecture Lead</div>
+      </div>
+    </div>
+    <div class="rec-card fu" data-step="03">
+      <div class="rec-tag">Step 03 · Q4 2023–2024</div>
+      <div class="rec-title">Implementation</div>
+      <div class="rec-body">Once solutions are agreed and aligned between IT, Business and SOM, initiate projects to implement. <strong>Priority order: CMP → Event Streams (CAPI) → GA4 → Data Clean Rooms → Identity Resolution → CDP</strong>. Onboard high-risk LMAs to IT support: 6Sense, Madison Logic, Stich.</div>
+      <div class="rec-owner">
+        <div class="rec-owner-dot"></div>
+        <div class="rec-owner-text">Owner: IT PM (TBD per project)</div>
+      </div>
+    </div>
+    <div class="rec-card fu" data-step="04">
+      <div class="rec-tag">Step 04 · Parallel Track</div>
+      <div class="rec-title">Assess TCO Opportunities</div>
+      <div class="rec-body">In parallel with evaluating new solutions, assess the existing MarTech stack for duplication and opportunities to reduce TCO. Adobe Audience Manager is the primary opportunity. <strong>Potential savings of up to $3.2M</strong> — offsetting a significant portion of the new investment required. Evaluate COTS alternatives providing similar or enhanced functionality.</div>
+      <div class="rec-owner">
+        <div class="rec-owner-dot"></div>
+        <div class="rec-owner-text">Owner: Global IDTM Lead · IT Architect: IT Architecture Lead</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS LANDSCAPE -->
+<div class="bg-pale">
+  <section class="section" id="solutions">
+    <div class="sec-eyebrow">
+      <div class="sec-num">07</div>
+      <div class="sec-line"></div>
+      <div class="sec-tag">Solutions Landscape · Evaluated Tools</div>
+    </div>
+    <h2 class="sec-h2">Platform <em>Landscape</em></h2>
+    <p class="sec-intro">The range of AdTech solutions which the organisation has either onboarded or is planning to onboard puts the programme in a strong position. The key ones are Tealium Event Streams (WIP), GA4 Enterprise (WIP), Data Clean Rooms (WIP — Infosum &amp; AMC pilots planned), Consent Management Systems, and Identity Resolution.</p>
+
+    <div class="solutions-grid">
+      <div class="sol-card fu">
+        <div class="sol-cat">CMP</div>
+        <div class="sol-title">Consent Management</div>
+        <ul class="sol-list">
+          <li>OneTrust</li>
+          <li>CookieYes</li>
+          <li>Osano</li>
+          <li>UserCentrics</li>
+          <li>Quantcast Choice</li>
+        </ul>
+      </div>
+      <div class="sol-card fu">
+        <div class="sol-cat">Data Collection</div>
+        <div class="sol-title">Event Streams &amp; Server-Side</div>
+        <ul class="sol-list">
+          <li>Google DV360 <span class="used">In use</span></li>
+          <li>Tealium</li>
+          <li>Madison Logic <span class="used">LMA</span></li>
+          <li>6Sense <span class="used">LMA</span></li>
+          <li>LiveRamp</li>
+          <li>Ad.Lib</li>
+          <li>Treasure Data CDP</li>
+        </ul>
+      </div>
+      <div class="sol-card fu">
+        <div class="sol-cat">ID Resolution</div>
+        <div class="sol-title">Identity &amp; Profile Stitching</div>
+        <ul class="sol-list">
+          <li>LiveRamp</li>
+          <li>Treasure Data CDP</li>
+          <li>Amperity</li>
+          <li>Listrak</li>
+          <li>Tealium</li>
+          <li>Infosum</li>
+        </ul>
+      </div>
+      <div class="sol-card fu">
+        <div class="sol-cat">Compliance / DCR</div>
+        <div class="sol-title">Data Clean Rooms</div>
+        <ul class="sol-list">
+          <li>Infosum <span class="used">Pilot</span></li>
+          <li>Amazon Marketing Cloud <span class="used">Pilot</span></li>
+          <li>Snowflake / Habu</li>
+          <li>LiveRamp</li>
+          <li>Disney (DCR)</li>
+        </ul>
+      </div>
+      <div class="sol-card fu">
+        <div class="sol-cat">Analytics</div>
+        <div class="sol-title">Measurement &amp; Attribution</div>
+        <ul class="sol-list">
+          <li>Google Analytics 4 <span class="used">LMA/WIP</span></li>
+          <li>Kochava <span class="used">In use</span></li>
+          <li>Adobe Analytics <span class="used">In use</span></li>
+        </ul>
+      </div>
+      <div class="sol-card fu">
+        <div class="sol-cat">Media Partners</div>
+        <div class="sol-title">Agency &amp; Activation</div>
+        <ul class="sol-list">
+          <li>Media Agency <span class="used">In use</span></li>
+          <li>Merkle <span class="used">In use</span></li>
+          <li>Sprinklr <span class="used">In use</span></li>
+          <li>Smartly.io</li>
+          <li>6Sense <span class="used">Onboarding</span></li>
+          <li>Madison Logic <span class="used">Onboarding</span></li>
         </ul>
       </div>
     </div>
+  </section>
+</div>
+
+
+<!-- MARTECH STACK DIAGRAM -->
+<div class="stack-section" id="martech-stack">
+  <div class="stack-inner">
+
+    <div class="sec-eyebrow">
+      <div class="sec-num" style="color:var(--green)">08</div>
+      <div class="sec-line" style="background:#222"></div>
+      <div class="sec-tag" style="color:#555">MarTech Architecture · Full Stack Diagram</div>
+    </div>
+    <h2 class="sec-h2" style="color:var(--white)">MarTech <em>Excellence</em> Architecture</h2>
+    <p class="sec-intro" style="color:#555">End-to-end view of the paid media technology stack — from customer data signals through to ad platform activation. Mapped across current state, work-in-progress, and planned future state initiatives.</p>
+
+    <!-- FULL ARCHITECTURE DIAGRAM -->
+    <div class="arch-diagram">
+
+      <!-- LAYER 1: CUSTOMER SIGNALS -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-cyan">Customer Signals</div>
+        <div class="layer-content">
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🌐</span>
+            <div class="node-title">Web Platform</div>
+            <div class="node-sub">brand.co.uk · Browser interactions · Adobe Launch tag container</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📱</span>
+            <div class="node-title">Mobile App</div>
+            <div class="node-sub">iOS + Android · Loyalty App · Mobile SDK interactions</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🏪</span>
+            <div class="node-title">POS / POI</div>
+            <div class="node-sub">Point of Sale · Point of Interest · Physical channel data</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">👤</span>
+            <div class="node-title">CRM</div>
+            <div class="node-sub">Customer relationship data · Loyalty programme profiles · SSO / Offer ID</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🤝</span>
+            <div class="node-title">AMC + Partnerships</div>
+            <div class="node-sub">Amazon Marketing Cloud · Partner data feeds · Retail media signals</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector fu"><div class="connector-line"><div class="cl"></div></div><div class="connector-label">↓ RAW EVENT STREAMS ↓</div><div class="connector-line"><div class="cl"></div></div></div>
+
+      <!-- LAYER 2: CONSENT + TAG MANAGEMENT -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-amber">Consent Gate</div>
+        <div class="layer-content">
+          <div class="node n-amber fu" style="flex:1.5">
+            <span class="node-badge badge-wip">WIP</span>
+            <span class="node-icon">🔐</span>
+            <div class="node-title">Consent Management Platform</div>
+            <div class="node-sub">OneTrust / TIQ · Stores consent server-side · In-app opt-out · Target: 40% opt-in rate (vs current 20%)</div>
+          </div>
+          <div class="node n-amber fu" style="flex:2">
+            <span class="node-badge badge-wip">WIP</span>
+            <span class="node-icon">🏷️</span>
+            <div class="node-title">Tag &amp; Event Management · Tealium</div>
+            <div class="node-sub">Client-side SDK (Web + App) · Server-side CAPI container · Replaces Adobe Launch · Reduces 3PC loss from 80% → 30%</div>
+          </div>
+          <div class="node n-red fu" style="flex:1">
+            <span class="node-badge badge-risk">Risk</span>
+            <span class="node-icon">⚠️</span>
+            <div class="node-title">Evidon (Legacy)</div>
+            <div class="node-sub">Current CMP · Not fit for purpose · Replacement in evaluation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector fu"><div class="connector-line"><div class="cl"></div></div><div class="connector-label">↓ CONSENTED + SERVER-SIDE EVENTS ↓</div><div class="connector-line"><div class="cl"></div></div></div>
+
+      <!-- LAYER 3: ANALYTICS + MEASUREMENT -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-blue">Analytics</div>
+        <div class="layer-content">
+          <div class="node n-blue fu">
+            <span class="node-badge badge-wip">WIP</span>
+            <span class="node-icon">📊</span>
+            <div class="node-title">GA4 Enterprise</div>
+            <div class="node-sub">GDPR-compliant · Regional EU servers · IP discarding · Cross-device · Replaces Universal Analytics</div>
+          </div>
+          <div class="node n-blue fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🔬</span>
+            <div class="node-title">Adobe Analytics</div>
+            <div class="node-sub">AEP · 1P pixel (fires regardless of opt-in) · Short-term mitigation against UA sunset</div>
+          </div>
+          <div class="node n-blue fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📍</span>
+            <div class="node-title">Kochava MMP</div>
+            <div class="node-sub">Mobile attribution · SKAN 4.0 · iOS + Android · App-to-web journey attribution · Already deployed globally</div>
+          </div>
+          <div class="node n-blue fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🎯</span>
+            <div class="node-title">Adobe AEP</div>
+            <div class="node-sub">Audience Manager · Real-time CDP (limited activation) · Content personalisation triggers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector fu"><div class="connector-line"><div class="cl"></div></div><div class="connector-label">↓ ENRICHED PROFILES + AUDIENCE SEGMENTS ↓</div><div class="connector-line"><div class="cl"></div></div></div>
+
+      <!-- LAYER 4: IDENTITY + CDP -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-purple">Identity &amp; CDP</div>
+        <div class="layer-content">
+          <div class="node n-purple fu" style="flex:1.5">
+            <span class="node-badge badge-planned">Planned</span>
+            <span class="node-icon">🔗</span>
+            <div class="node-title">Identity Resolution</div>
+            <div class="node-sub">LiveRamp / Tealium · Replaces ECID (3PC-based) · Common cross-platform ID · Persistent profile stitching across devices</div>
+          </div>
+          <div class="node n-purple fu" style="flex:1.5">
+            <span class="node-badge badge-planned">Planned</span>
+            <span class="node-icon">🧠</span>
+            <div class="node-title">Customer Data Platform</div>
+            <div class="node-sub">Audience Streams · Cross-device visitor stitching · Real-time segmentation · Replaces AAM · Extends 1P data across full journey</div>
+          </div>
+          <div class="node n-purple fu" style="flex:1">
+            <span class="node-badge badge-planned">Planned</span>
+            <span class="node-icon">🏛️</span>
+            <div class="node-title">Data Clean Rooms</div>
+            <div class="node-sub">Infosum · AMC · Habu/Snowflake · Privacy-safe data collaboration · Measurement without 3PC</div>
+          </div>
+          <div class="node n-dim fu" style="flex:1">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">☁️</span>
+            <div class="node-title">Azure Data Lake</div>
+            <div class="node-sub">Adobe Campaign · CCX · LOD · CRM &amp; Loyalty data · First and third party datasets</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector fu"><div class="connector-line"><div class="cl"></div></div><div class="connector-label">↓ VALIDATED · DEDUPLICATED · CONSENTED AUDIENCES ↓</div><div class="connector-line"><div class="cl"></div></div></div>
+
+      <!-- LAYER 5: ACTIVATION -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-green">Activation</div>
+        <div class="layer-content">
+          <div class="node n-green fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📺</span>
+            <div class="node-title">Display · DV360</div>
+            <div class="node-sub">Programmatic · Google Display Network · DV360 already in use</div>
+          </div>
+          <div class="node n-green fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📘</span>
+            <div class="node-title">Social · Meta CAPI</div>
+            <div class="node-sub">Facebook · Instagram · Server-side CAPI event integration · TikTok CAPI</div>
+          </div>
+          <div class="node n-green fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🔍</span>
+            <div class="node-title">Search · GMP</div>
+            <div class="node-sub">Google Ads · Google Marketing Platform · Search campaign optimisation</div>
+          </div>
+          <div class="node n-green fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">✨</span>
+            <div class="node-title">Smartly.io · DCO</div>
+            <div class="node-sub">Dynamic Creative Optimisation · Automated creative personalisation · Cross-channel</div>
+          </div>
+          <div class="node n-green fu">
+            <span class="node-badge badge-planned">Planned</span>
+            <span class="node-icon">🏢</span>
+            <div class="node-title">B2B · LMAs</div>
+            <div class="node-sub">6Sense · Madison Logic · Onboarding to IT support · Account-based targeting</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector fu"><div class="connector-line"><div class="cl"></div></div><div class="connector-label">↓ CAMPAIGN SIGNALS → MEASUREMENT LOOP ↓</div><div class="connector-line"><div class="cl"></div></div></div>
+
+      <!-- LAYER 6: OWNED CHANNELS + CRM -->
+      <div class="arch-layer" style="grid-template-columns:36px 1fr">
+        <div class="layer-label lbl-cyan" style="color:#22D3EE">Owned + CRM</div>
+        <div class="layer-content">
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📧</span>
+            <div class="node-title">Email · Adobe Campaign</div>
+            <div class="node-sub">ACS / ACC · Triggered email comms · Opt-in required for CRM</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🔔</span>
+            <div class="node-title">Push · Urban Airship</div>
+            <div class="node-sub">App push notifications · In-app messages · IDFA-dependent — risk from ATT opt-outs</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">💬</span>
+            <div class="node-title">Messaging · Sinch</div>
+            <div class="node-sub">SMS · Line · Viber · WhatsApp · Multi-channel messaging platform</div>
+          </div>
+          <div class="node n-cyan fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">🎯</span>
+            <div class="node-title">Personalisation · Adobe Target</div>
+            <div class="node-sub">Website personalisation · A/B testing · ODE Offers engine · AEP orchestration</div>
+          </div>
+          <div class="node n-dim fu">
+            <span class="node-badge badge-live">Live</span>
+            <span class="node-icon">📈</span>
+            <div class="node-title">Agency Partners</div>
+            <div class="node-sub">Media Agency · Merkle · Sprinklr · DSP + Ad Exchange + Publisher management</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STACK LEGEND -->
+    <div class="stack-legend fu">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><div class="legend-text">Live / In Production</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><div class="legend-text">Work In Progress (WIP)</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#555"></div><div class="legend-text">Planned / In Evaluation</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><div class="legend-text">At Risk / Legacy</div></div>
+      <div class="legend-item" style="margin-left:auto"><div class="legend-text" style="color:#333">Source: Global Energy Co Paid Media IT Strategy — July 2023</div></div>
+    </div>
+
+    <!-- TECH STACK INVESTMENT TABLE -->
+    <div style="margin-top:64px">
+      <div class="sec-eyebrow" style="margin-bottom:24px">
+        <div class="sec-num" style="color:var(--green)">08b</div>
+        <div class="sec-line" style="background:#222"></div>
+        <div class="sec-tag" style="color:#555">Full MarTech Stack · Investment Register</div>
+      </div>
+      <h2 class="sec-h2" style="color:var(--white);margin-bottom:8px">Technology <em>Stack</em></h2>
+      <p class="sec-intro" style="color:#555;margin-bottom:32px">Complete inventory of paid media technology platforms — mapped by function, deployment status, and strategic priority.</p>
+
+      <div class="tech-stack-grid">
+        <!-- Consent & Privacy -->
+        <div class="tech-category fu">
+          <div class="tech-cat-label"><div class="tech-cat-dot" style="background:var(--amber)"></div><span style="color:var(--amber)">Consent &amp; Privacy</span></div>
+          <div class="tech-tool"><div class="tech-tool-name">OneTrust / TIQ</div><div class="tech-tool-status" style="background:var(--amber);color:#000">WIP</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Evidon</div><div class="tech-tool-status" style="background:var(--red);color:#fff">Legacy</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">TrustArc</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Eval</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">UserCentrics</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Eval</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Quantcast Choice</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Eval</div></div>
+        </div>
+
+        <!-- Data Collection -->
+        <div class="tech-category fu">
+          <div class="tech-cat-label"><div class="tech-cat-dot" style="background:var(--green)"></div><span style="color:var(--green)">Data Collection</span></div>
+          <div class="tech-tool"><div class="tech-tool-name">Tealium Event Streams</div><div class="tech-tool-status" style="background:var(--amber);color:#000">WIP</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Adobe Launch</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Google DV360</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Meta CAPI</div><div class="tech-tool-status" style="background:var(--amber);color:#000">WIP</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Madison Logic</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">LMA</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">6Sense</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">LMA</div></div>
+        </div>
+
+        <!-- Analytics & Measurement -->
+        <div class="tech-category fu">
+          <div class="tech-cat-label"><div class="tech-cat-dot" style="background:#60A5FA"></div><span style="color:#60A5FA">Analytics</span></div>
+          <div class="tech-tool"><div class="tech-tool-name">Adobe Analytics (AEP)</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Google Analytics 4</div><div class="tech-tool-status" style="background:var(--amber);color:#000">WIP</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Kochava MMP</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">GA Universal</div><div class="tech-tool-status" style="background:var(--red);color:#fff">Sunset</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Adobe Audience Mgr</div><div class="tech-tool-status" style="background:var(--amber);color:#000">Review</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Amazon Marketing Cloud</div><div class="tech-tool-status" style="background:var(--amber);color:#000">Pilot</div></div>
+        </div>
+
+        <!-- Identity & CDP -->
+        <div class="tech-category fu">
+          <div class="tech-cat-label"><div class="tech-cat-dot" style="background:#C084FC"></div><span style="color:#C084FC">Identity &amp; CDP</span></div>
+          <div class="tech-tool"><div class="tech-tool-name">LiveRamp</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Planned</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Tealium AudienceStream</div><div class="tech-tool-status" style="background:var(--amber);color:#000">WIP</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Treasure Data CDP</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Eval</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Infosum DCR</div><div class="tech-tool-status" style="background:var(--amber);color:#000">Pilot</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Habu / Snowflake</div><div class="tech-tool-status" style="background:#222;color:#666;border:1px solid #333">Eval</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">ECID (Legacy)</div><div class="tech-tool-status" style="background:var(--red);color:#fff">Risk</div></div>
+        </div>
+
+        <!-- Owned + Activation -->
+        <div class="tech-category fu">
+          <div class="tech-cat-label"><div class="tech-cat-dot" style="background:#22D3EE"></div><span style="color:#22D3EE">Activation</span></div>
+          <div class="tech-tool"><div class="tech-tool-name">Adobe Campaign (ACS)</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Smartly.io (DCO)</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Urban Airship</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Adobe Target</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Sinch (SMS/Msg)</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+          <div class="tech-tool"><div class="tech-tool-name">Media Agency</div><div class="tech-tool-status" style="background:var(--green);color:#000">Live</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATURITY MATRIX -->
+    <div class="maturity-wrap fu" style="margin-top:64px">
+      <div class="maturity-title">Opportunities · Value / Maturity Matrix — Priority Map</div>
+      <div class="matrix-axes">
+        <div class="matrix-y-label">↑ Business Value</div>
+        <div>
+          <div class="matrix-grid">
+            <div class="matrix-cell" style="border-top:3px solid var(--red)">
+              <div class="matrix-cell-pri">P1</div>
+              <div class="matrix-cell-tag" style="color:var(--red)">High Value · Low Maturity</div>
+              <div class="matrix-cell-name">Consent Management Platform</div>
+              <div class="matrix-cell-value" style="color:var(--green)">$70M</div>
+            </div>
+            <div class="matrix-cell" style="border-top:3px solid var(--amber)">
+              <div class="matrix-cell-pri">P2</div>
+              <div class="matrix-cell-tag" style="color:var(--amber)">High Value · Mid Maturity</div>
+              <div class="matrix-cell-name">Event Streams · CAPI</div>
+              <div class="matrix-cell-value" style="color:var(--green)">$8M</div>
+            </div>
+            <div class="matrix-cell" style="border-top:3px solid var(--green)">
+              <div class="matrix-cell-pri">P3</div>
+              <div class="matrix-cell-tag" style="color:var(--green)">High Value · High Maturity</div>
+              <div class="matrix-cell-name">Google Analytics 4</div>
+              <div class="matrix-cell-value" style="color:var(--green)">$2M</div>
+            </div>
+            <div class="matrix-cell" style="border-top:3px solid #444">
+              <div class="matrix-cell-pri">P4</div>
+              <div class="matrix-cell-tag" style="color:#555">Mid Value · Low Maturity</div>
+              <div class="matrix-cell-name">Audience Streams · CDP</div>
+              <div class="matrix-cell-value" style="color:#777">$3M</div>
+            </div>
+            <div class="matrix-cell" style="border-top:3px solid #444">
+              <div class="matrix-cell-pri">P5</div>
+              <div class="matrix-cell-tag" style="color:#555">Mid Value · Mid Maturity</div>
+              <div class="matrix-cell-name">Data Clean Rooms</div>
+              <div class="matrix-cell-value" style="color:#777">$3M</div>
+            </div>
+            <div class="matrix-cell" style="border-top:3px solid #444">
+              <div class="matrix-cell-pri">P6</div>
+              <div class="matrix-cell-tag" style="color:#555">Mid Value · High Maturity</div>
+              <div class="matrix-cell-name">Identity Resolution</div>
+              <div class="matrix-cell-value" style="color:#777">$8M</div>
+            </div>
+          </div>
+          <div class="matrix-x-label">MarTech Maturity →</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- IMPACT -->
-<section id="impact">
-  <div class="section-header fade-up">
-    <div class="section-num">03</div>
-    <div class="section-title-block">
-      <h2>Business <em>Impact</em></h2>
-      <p>Beyond the headline numbers — the MMP rollout delivered structural improvements across Energy-provider's entire digital growth operation.</p>
-    </div>
-  </div>
-
-  <div class="impact-grid">
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-yellow"></div>
-      <span class="impact-icon">🚀</span>
-      <h3>Rapid User Base Expansion</h3>
-      <p>The rollout enabled Energy-provider to quickly grow and expand its user base at a cheaper cost than traditional channels — fundamentally changing the economics of digital acquisition for a global energy brand.</p>
-    </div>
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-red"></div>
-      <span class="impact-icon">🔐</span>
-      <h3>Privacy-First Attribution</h3>
-      <p>Full SKAN and ATT compliance built into every measurement touchpoint — proving that rigorous privacy compliance and commercial growth are not in tension when the right MMP infrastructure is in place.</p>
-    </div>
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-dark"></div>
-      <span class="impact-icon">💎</span>
-      <h3>Loyalty Programme Monetisation</h3>
-      <p>First-party Loyalty data was transformed from an underutilised asset into a high-value targeting signal — enabling personalised content, dynamic offers and significantly improved customer lifetime value.</p>
-    </div>
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-yellow"></div>
-      <span class="impact-icon">🎛️</span>
-      <h3>Single Source of Truth</h3>
-      <p>Kochava's unified dashboard replaced fragmented, platform-native reporting — giving Energy-provider's media and analytics teams one consistent, trustworthy view of performance across all markets.</p>
-    </div>
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-red"></div>
-      <span class="impact-icon">📉</span>
-      <h3>Budget Efficiency</h3>
-      <p>80% reduction in eCPI enabled the same acquisition volume at a fraction of the cost — or significantly higher volume at the same budget. Media spend was reallocated to the highest-performing channels with confidence.</p>
-    </div>
-    <div class="impact-card fade-up">
-      <div class="impact-card-accent accent-dark"></div>
-      <span class="impact-icon">⭐</span>
-      <h3>Brand & App Reputation</h3>
-      <p>The correlation between better-targeted acquisition and improved app ratings (4.8 displayed, 9% reputation index growth vs 4% benchmark) demonstrates that MMP-driven quality targeting improves brand perception, not just metrics.</p>
-    </div>
-  </div>
-</section>
-
-<!-- APP PERFORMANCE -->
-<div class="app-perf">
-  <div class="app-perf-inner">
-    <div class="section-header fade-up">
-      <div class="section-num" style="color:rgba(161,0,255,.12)">04</div>
-      <div class="section-title-block">
-        <h2 style="color:#F0EDE6">Six-Month <em style="color:var(--ac-purple)">Performance</em> Uplift</h2>
-        <p style="color:#6B6660">Below stats show the uplift in performance over the past six months. Source: Adobe Analytics · Apr–Sep 2023 · Global markets.</p>
-      </div>
-    </div>
-
-    <div class="perf-grid">
-      <div class="perf-cell fade-up">
-        <span class="perf-num">+71%</span>
-        <div class="perf-label">iOS Revenue Growth</div>
-        <p class="perf-desc">Post-SKAN deployment. Privacy-compliant iOS attribution delivering real commercial returns.</p>
-      </div>
-      <div class="perf-cell fade-up">
-        <span class="perf-num">+58%</span>
-        <div class="perf-label">First-Party User Base</div>
-        <p class="perf-desc">Via the app channel with less than 2% of total media budget allocated.</p>
-      </div>
-      <div class="perf-cell fade-up">
-        <span class="perf-num">+44%</span>
-        <div class="perf-label">Conversion Rate</div>
-        <p class="perf-desc">Channel Analytics confirms a 44% uplift in end-to-end conversion performance.</p>
-      </div>
-      <div class="perf-cell fade-up">
-        <span class="perf-num">-50%</span>
-        <div class="perf-label">Install-to-Registration Drop-off</div>
-        <p class="perf-desc">Funnel optimisation halved the gap between app install and completed registration.</p>
-      </div>
-      <div class="perf-cell fade-up">
-        <span class="perf-num">-80%</span>
-        <div class="perf-label">User Acquisition Cost</div>
-        <p class="perf-desc">eCPI reduced to $1–4 — an 80% improvement on pre-rollout acquisition economics.</p>
-      </div>
-      <div class="perf-cell fade-up">
-        <span class="perf-num">+9%</span>
-        <div class="perf-label">App Reputation Index</div>
-        <p class="perf-desc">vs 4% market benchmark. Energy-provider's app reputation grew at 2.25× the market rate.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SOURCE BAR -->
-<div class="source-bar">
-  <div class="source-item"><strong>Data Source:</strong> Adobe Analytics</div>
-  <span class="source-sep">·</span>
-  <div class="source-item"><strong>App Ratings Source:</strong> Appfollow.io</div>
-  <span class="source-sep">·</span>
-  <div class="source-item"><strong>Date Range:</strong> 1 April – 30 September 2023</div>
-  <span class="source-sep">·</span>
-  <div class="source-item"><strong>Markets:</strong> Global</div>
-  <span class="source-sep">·</span>
-  <div class="source-item"><strong>MMP Partner:</strong> Kochava</div>
-</div>
 
 <!-- FOOTER -->
 <footer>
-      <h3>Energy-provider · MMP Global Rollout</h3>
-      <p>Mobile Measurement Partner Case Study · 2023</p>
-    </div>
+  <div class="footer-left">
+    <div class="footer-tag">Global Energy Co · Paid Media AdTech · Confidential</div>
+    <h3>IT Strategy &amp; Assessment 2023</h3>
+    <p>A combined IT and Business AdTech strategy to navigate the deprecation of third-party cookies, tightening data privacy regulations, and the imperative to build a first-party data infrastructure fit for the next decade of digital marketing.</p>
   </div>
   <div class="footer-right">
-    Kochava · Adobe Analytics · Appfollow.io<br/>
-    Global Markets · April – September 2023
+    <div class="footer-tag">Authors</div>
+    <div class="footer-authors">
+      <div class="footer-author"><strong>E. Chen</strong> — IDT Advisor, Connected Customer</div>
+      <div class="footer-author"><strong>H. Bhatt</strong> — Global Media AdTech Lead</div>
+      <div class="footer-author"><strong>R. Upadhay</strong> — MarTech Business Director</div>
+    </div>
   </div>
 </footer>
 
 <script>
-// Scroll-triggered fade-up animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+// Scroll-triggered fade-up
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-// Smooth scroll for anchor links
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
-
-// Counter animation for big numbers
-function animateCounter(el, target, suffix, duration = 1800) {
-  const start = performance.now();
-  const isFloat = target % 1 !== 0;
-  const update = (now) => {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1 - progress, 3);
-    const current = isFloat ? (target * ease).toFixed(1) : Math.round(target * ease);
-    el.textContent = current + suffix;
-    if (progress < 1) requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
-}
-
-// Trigger counters when stats come into view
-const counterObs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.dataset.counted) {
-      entry.target.dataset.counted = '1';
-      const el = entry.target;
-      const val = parseFloat(el.dataset.val);
-      const suf = el.dataset.suffix || '';
-      animateCounter(el, val, suf);
-    }
-  });
-}, { threshold: 0.5 });
 </script>
-
 </body>
 </html>
